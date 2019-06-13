@@ -1,0 +1,817 @@
+Display initials
+
+// Joshua Abravanel
+// Fun Fact: i am a cool cat.
+
+#include <iostream>
+
+int main()
+{
+    std::cout << "JJJJJ    A  \n";
+		std::cout << "  J     A A \n";
+		std::cout << "  J    A   A\n";
+		std::cout << "  J    AAAAA\n";
+		std::cout << "J J    A   A\n";
+		std::cout << "J J    A   A\n";
+		std::cout << " JJ    A   A\n"; 
+    //return 0; 
+}   
+
+Transform dog's age to human years
+
+#include <iostream>
+
+int main() {
+  // Truffles is 11 years old
+  int dog_age;
+  dog_age = 11; // This is my dog's age
+  int early_years = 21, later_years, human_years; // the first 2 years of a dog's life count for 21 human years.
+  later_years = (dog_age - 2)*4; // a dog's age per year past 2 years is 4 dog years to 1 human year.
+  human_years = later_years + early_years; // add later and early years.
+	std::cout << "Your dog's age is " << dog_age << " and your dog's age in human years is: " << human_years << "\n";
+}
+
+Currency Conversion
+
+#include <iostream>
+
+int main() {
+  
+  double Pesos, Reais, Soles, USD;
+  
+  std::cout << "Enter number of Columbian Pesos: ";
+  std::cin >> Pesos;
+  USD = 0.00031*Pesos + USD;
+  std::cout << "Enter number of Columbian Reais: ";
+  std::cin >> Reais;
+  USD = 0.26*Reais + USD;
+  std::cout << "Enter number of Columbian Soles: ";
+  std::cin >> Soles;
+  USD = 0.30*Soles + USD;
+  std::cout << "You have this much US Dollars: $" << USD << "\n";
+  
+}
+
+Weight on 6 planets
+
+#include <iostream>
+
+int main() {
+  
+  double weight;
+  int planet;
+  
+  std::cout << "Enter your weight: ";
+  std::cin >> weight;
+  
+  std::cout << "Enter a number from 1 to 6 for which planet you would like to fight on: \nVenus 1\nMars 2\nJupiter 3\nSaturn 4\nUranus 5\nNeptune: 6\n";
+  std::cin >> planet;
+  
+  switch(planet){
+      
+    case 1:
+      std::cout << "Your weight on Venus is: " << weight*0.78 << "kg \n";
+      break;
+    case 2:
+      std::cout << "Your weight on Mars is: " << weight*0.39 << "kg \n";
+      break;
+    case 3:
+      std::cout << "Your weight on Jupiter is: " << weight*2.65 << "kg \n";
+      break;
+    case 4:
+      std::cout << "Your weight on Saturn is: " << weight*1.17 << "kg \n";
+      break;
+    case 5:
+      std::cout << "Your weight on Uranus is: " << weight*1.05 << "kg \n";
+      break;
+    case 6:
+      std::cout << "Your weight on Neptune is: " << weight*1.23 << "kg\n";
+      break;
+    default:
+      std::cout << "Invalid input.";
+      break;
+      
+  }
+  
+}
+
+Magic 8-Ball
+
+#include <iostream>
+#include <cstdlib>
+
+int main() {
+  
+  // Your future is here
+  std::cout << "Magic 8-ball\n";
+  srand(time(NULL));
+  int answer = std::rand() % 10;
+  std::cout << answer << "\n";
+  
+  if (answer == 0) {
+    
+    std::cout << "It is certain.";
+    
+  }
+  else if (answer == 1) {
+    
+    std::cout << "Clouded with lightning.";
+    
+  }
+  else if (answer == 2) {
+    
+    std::cout << "Dark";
+  }
+  else if (answer == 3) {
+    
+    std::cout << "Glorious";
+    
+  }
+  else if (answer == 4) {
+    
+    std::cout << "confounded with traps";
+    
+  }
+  else if (answer == 5) {
+    
+    std::cout << "Full of joy";
+    
+  }
+  else if (answer == 6) {
+    
+    std::cout << "Plagued with doubts";
+    
+  }
+  else if (answer == 7) {
+    
+    std::cout << "Victory is assured";
+    
+  }
+  else if (answer == 8) {
+    
+    std::cout << "An eternity would not suffice to answer this question";
+    
+  }
+  else if (answer == 9) {
+    
+    std::cout << "It will probably spiral out of control";
+    
+  }
+  else {
+    std::cout << "Very doubtful.";
+  }
+}
+
+Sorting hat identifies Harry Potter "House" via weighted questions
+
+#include <iostream>
+
+int main () {
+	
+  int gryffindor = 0, hufflepuff = 0, ravenclaw = 0, slytherin = 0;
+  int answer1, answer2, answer3, answer4;
+  std::string house;
+  int max = 0;
+  
+  std::cout << "The Sorting Hat Quiz!.\n";
+  
+  // Question 1
+  std::cout << "Q1) When I'm dread, I want people to remember me as:\n\n";
+  std::cout << "1) The Good\n";
+  std::cout << "2) The Great\n";
+  std::cout << "3) The Wise\n";
+  std::cout << "4) The Bold\n";
+  std::cin >> answer1;
+	
+  if (answer1 == 1){hufflepuff++;}
+  else if (answer1 == 2){slytherin++;}
+  else if (answer1 == 3){ravenclaw++;}
+  else if (answer1 == 4){gryffindor++;}
+	else {std::cout << "Invalid input.";}
+
+	// Question 2
+  std::cout << "Q2) Dawn or Dusk?:\n\n";
+  std::cout << "1) Dawn\n";
+  std::cout << "2) Dusk\n";
+  std::cin >> answer2;
+  
+  if (answer2 == 1){
+    gryffindor++;
+  	ravenclaw++;
+  }
+  else if (answer2 == 2){
+    hufflepuff++;
+    slytherin++;
+  }
+  else {std::cout << "Invalid input";}
+  
+  // Question 3
+	std::cout << "Q3) Which kind of instrument most pleases your ear?:\n\n";
+  std::cout << "1) The violin\n";
+  std::cout << "2) The trumpet\n";
+  std::cout << "3) The piano\n";
+  std::cout << "4) The drum\n";
+  std::cin >> answer3;
+  
+  if (answer3 == 1){slytherin++;}
+	else if (answer3 == 2){hufflepuff++;}
+	else if (answer3 == 3){ravenclaw++;}
+	else if (answer3 == 4){gryffindor++;}
+  else {std::cout << "Invalid input.\n";}
+  
+  // Question 3
+	std::cout << "Q4) Which road tempts you most?:\n\n";
+  std::cout << "1) The wide, sunny grassy lane\n";
+  std::cout << "2) The narrow, dark, lantern-lit alley\n";
+  std::cout << "3) The twisting, leaf-strewn path through woods\n";
+  std::cout << "4) The cobbled street lined (ancient buildings)\n";
+  std::cin >> answer4;
+  
+  if (answer4 == 1){hufflepuff++;}
+	else if (answer4 == 2){slytherin++;}
+	else if (answer4 == 3){gryffindor++;}
+	else if (answer4 == 4){ravenclaw++;}
+  else {std::cout << "Invalid input.\n";}
+ 
+  //Calculating max via comparison
+  if (gryffindor > max) {
+
+ 		max = gryffindor;
+  	house = "Gryffindor";
+
+	}
+
+	if (hufflepuff > max) {
+
+  	max = hufflepuff;
+  	house = "Hufflepuff";
+
+	}
+
+	if (ravenclaw > max) {
+
+  	max = ravenclaw;
+  	house = "Ravenclaw";
+
+	}
+
+	if (slytherin > max) {
+
+  	max = slytherin;
+ 		house = "Slytherin";
+
+  }
+  
+  std::cout << "\n" << house << "!\n\n";
+  
+  std::cout << "Gryffindor: " << gryffindor << "\nSlytherin: " << slytherin << " \nRavenclaw: " << ravenclaw << "\nHufflepuff: " << hufflepuff;
+  
+}
+
+
+
+Rock, Paper, Scissors, Lizard, Spock Game vs AI
+
+/* Rock, Paper, Scissors, Lizard, Spock Game vs AI
+Fun for all!
+*/
+#include <iostream>
+
+int main (){
+  
+  int rock = 0, paper = 0, scissors = 0, lizard = 0, spock = 0;
+  int answer = 0;
+  bool proceed = true;
+  
+  // While loop to play again
+  while (proceed == true){
+    // Welcome ceremony
+     std::cout << "Welcome to Rock, Paper, Scissors, Lizard, Spock, the master mindgame!\n";
+    std::cout << "Please choose between Rock, Paper, Scissors, Lizard or Spock.\n";
+    // Select your preferred method of destruction
+      std::cout << "1) Rock\n" << "2) Paper\n" << "3) Scissors\n" << "4) Lizard\n" << "5) Spock\n\n";
+    std::cin >> answer;
+    
+    // Create string form of answer and pass it through switch statement to determine the string that is the answer.
+    std::string string_answer = "";
+
+    switch (answer) {
+
+      case 1: 
+        string_answer = "Rock";
+        break;
+      case 2:
+        string_answer = "Paper";
+        break;
+      case 3:
+        string_answer = "Scissors";
+        break;
+      case 4:
+        string_answer = "Lizard";
+        break;
+      case 5:
+        string_answer = "Spock";
+        break;
+      default:
+        break;
+
+    } 
+    
+    // Display user's choice
+    std::cout << "\nYour choice: " << string_answer << "\n";
+    
+    // Generate a number from 1-6
+    srand((unsigned)time(0)); 
+    int i;
+    i = (rand()%5)+1;
+      
+    std::string string_answer_AI = "";
+    
+    switch (i) {
+
+      case 1: 
+        string_answer_AI = "Rock";
+        break;
+      case 2:
+        string_answer_AI = "Paper";
+        break;
+      case 3:
+        string_answer_AI = "Scissors";
+        break;
+      case 4:
+        string_answer_AI = "Lizard";
+        break;
+      case 5:
+        string_answer_AI = "Spock";
+        break;
+      default:
+        break;
+
+    } 
+    
+    // Display AI's choice
+    std::cout << "AI's choice: " << string_answer_AI << "\n";
+    
+    if (string_answer == "Rock"){
+      if (string_answer_AI == "Scissors"){
+        std::cout << "Rock beats Scissors, you win!\n";
+      }
+      else if (string_answer_AI == "Lizard"){
+        std::cout << "Rock beats Lizard, you win!\n";
+      }
+      else if (string_answer_AI == "Paper"){
+        std::cout << "Rock loses to Paper, you lose!\n";
+      }
+      else if (string_answer_AI == "Spock"){
+        std::cout << "Rock loses to Spock, you lose!\n";
+      }
+      else {std::cout << "Rock ties with Rock, you tie!";}
+    }
+    else if (string_answer == "Paper"){
+      if (string_answer_AI == "Rock"){
+        std::cout << "Paper beats Rock, you win!\n";
+      }
+      else if (string_answer_AI == "Spock"){
+        std::cout << "Paper beats Spock, you win!\n";
+      }
+      else if (string_answer_AI == "Scissors"){
+        std::cout << "Paper loses to Scissors, you lose!\n";
+      }
+      else if (string_answer_AI == "Lizard"){
+        std::cout << "Paper loses to Lizard, you lose!\n";
+      }
+      else {std::cout << "Paper ties with Paper, you tie!";}
+    }
+    else if (string_answer == "Scissors"){
+      if (string_answer_AI == "Paper"){
+        std::cout << "Scissors beats Paper, you win!\n";
+      }
+      else if (string_answer_AI == "Lizard"){
+        std::cout << "Scissors beats Lizard, you win!\n";
+      }
+      else if (string_answer_AI == "Rock"){
+        std::cout << "Scissors lose to Rock, you lose!\n";
+      }
+      else if (string_answer_AI == "Spock"){
+        std::cout << "Scissors loses to Spock, you lose!\n";
+      }
+      else {std::cout << "Scissors ties with Scissors, you tie!";}
+    }
+    else if (string_answer == "Lizard"){
+      if (string_answer_AI == "Spock"){
+        std::cout << "Lizard beats Spock, you win!\n";
+      }
+      else if (string_answer_AI == "Paper"){
+        std::cout << "Lizard beats Paper, you win!\n";
+      }
+      else if (string_answer_AI == "Rock"){
+        std::cout << "Lizard loses to Rock, you lose!\n";
+      }
+      else if (string_answer_AI == "Scissors"){
+        std::cout << "Lizard loses to Scissors, you lose!\n";
+      }
+      else {std::cout << "Lizard ties with Lizard, you tie!";}
+    }
+    else if (string_answer == "Spock"){
+      if (string_answer_AI == "Scissors"){
+        std::cout << "Spock beats Scissors, you win!\n";
+        }
+      else if (string_answer_AI == "Rock"){
+        std::cout << "Spock beats Rock, you win!\n";
+      }
+      else if (string_answer_AI == "Paper"){
+        std::cout << "Spock loses to Paper, you lose!\n";
+      }
+      else if (string_answer_AI == "Lizard"){
+        std::cout << "Spock loses to Lizard, you lose!\n";
+      }
+      else {std::cout << "Spock ties with Spock, you tie!";}
+    }
+    
+    // Roadmap to triggering condition for initial While Loop (bool continue)
+    // Ask to play again using String answer_continue
+    std::string answer_continue = "";
+    std::cout << "\nWould you like to play again? (Y/N)\n";
+    std::cin >> answer_continue;
+    
+    bool proceed2 = true;
+      while (proceed2 == true){
+        // Compare string answer_continue with user's response to determine whether or not to continue
+        if (answer_continue == "Y"){
+          proceed = true;
+          proceed2 = false;
+        }
+        else if (answer_continue == "N"){
+          proceed = false;
+          proceed2 = false;
+        }
+        else {
+          proceed2 = true;
+          }
+
+      }
+        
+  }
+  
+}
+
+
+
+FizzBuzz replacing certain numbers from 1-100 with the results of their modulus with 3 and 5
+
+#include <iostream>
+
+int main () {
+  
+  int fizz_buzz = 1;
+  for (int i = 1; i <= 100; i++){
+    if (fizz_buzz % 3 == 0 && fizz_buzz % 5 == 0){
+      std::cout << "FizzBuzz ";
+    }
+    else if (fizz_buzz % 3 == 0){
+  		std::cout << "Fizz ";
+    }
+    else if (fizz_buzz % 5 == 0){
+      std::cout << "Buzz ";
+    }
+    else {
+      std::cout << fizz_buzz << " ";
+    }
+  
+    fizz_buzz++;
+  }
+    
+}
+
+
+
+***Find the sum of the Evens and multiplication of the Odds of a Vector 
+
+#include <iostream>
+#include <vector>
+
+int main () {
+  
+  int evens = 0;
+  int odds = 1;
+  std::vector<int> numbers = {7, 14, 1, 9, 6, 3, 16};
+  for (int i = 0; i < numbers.size(); i++){
+    if (numbers[i] % 2 == 0){
+      evens += numbers[i];
+    }
+    else {
+      odds = odds*numbers[i];
+    }
+  }
+  std::cout << "Evens: " << evens << "\nOdds: " << odds;
+  
+}
+
+
+Output whale language for any given length array
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+int main() {
+  
+  std::string input = "turpentine and turtles";
+  std::vector<char> vowels = {'a', 'e', 'i', 'o', 'u'};
+  std::vector<char> result;
+  
+  // Generate a number from 1-6
+  srand((unsigned)time(0)); 
+  int r;
+  
+  for (int i = 0; i < input.size(); i++){
+    r = (rand()%5+1);
+    
+    for (int k = 0; i < vowels.size(); k++){
+      
+      if (input [i] == vowels[k]){
+        
+        result.push_back(input[i]);
+        std::cout << "Hi!" << result[i];
+        
+        if (input[i] == 'e' || input[i] == 'i'){
+          result.push_back(input[i]);
+          std::cout << result[i];
+        }
+        
+      }
+    
+    }
+ 
+  }
+  
+  for (int s = 0; s < result.size(); s++){
+    std::cout << result[s];
+  }
+  
+}
+
+Checks if a word is a palindrome (If it has the same characters read forwards or backwards)
+
+#include <iostream>
+
+// Define is_palindrome() here:
+bool is_palindrome(std::string word){
+  
+  int string_length = word.length();
+  int n = 1;
+  int k = 0;
+  
+  if (string_length % 2 == 0){
+    
+    while (n<=string_length/2){ 
+      if(word[k] != word[string_length-n]){
+        std::cout << word[k] << " != " << word[string_length-n];
+        return false; 
+      }
+      n++;
+      k++;
+    }
+    
+  }
+  else {
+    
+    while (n<=string_length/2){
+      if(word[k] != word[string_length-n]){
+        std::cout << word[k] << " != " << word[string_length-n];
+        return false; 
+      }
+      n++;
+      k++;
+    }
+    
+  }
+  
+}
+
+int main() {
+  
+  std::cout << is_palindrome("madam") << "\n";
+  std::cout << is_palindrome("ada") << "\n";
+  std::cout << is_palindrome("lovelace") << "\n";
+
+}
+
+UFO GAME Hangman UFO style
+
+#include <vector>
+
+void display_status(std::vector <char> incorrect, std::string answer);
+void end_game(std::string codeword, std::string answer);
+void greet();
+void display_misses(int misses);
+
+FUNCTIONS
+
+#include <iostream>
+#include <vector>
+
+// Define functions
+void display_status(std::vector <char> incorrect, std::string answer){
+    
+  std::cout << "Incorrect Guesses: ";
+  for (int i = 0; i < incorrect.size(); i++){
+    std::cout << incorrect[i] << " ";
+  }
+
+  std::cout << "\nCodeword: "; 
+  for (int i = 0; i < answer.size(); i++){
+    std::cout << answer[i] << " ";
+  }
+
+}
+
+void end_game(std::string codeword, std::string answer) {
+    if (answer == codeword){std::cout << "Hooray! You saved the person and earned a medal of honor!";}
+  else {std::cout << "Oh no! The UFO just flew away with another person!";}
+}
+
+void greet(){
+  std::cout << "=============\n" << "UFO: The Game\n" << "=============\n" <<
+"Instructions: save your friend from alien abduction by guessing the letters in the codeword.";
+}
+
+
+
+void display_misses(int misses) {
+
+  if (misses == 0 || misses == 1) {
+
+    std::cout << "                 .                            \n";
+    std::cout << "                 |                            \n";
+    std::cout << "              .-\"^\"-.                       \n";
+    std::cout << "             /_....._\\                       \n";
+    std::cout << "         .-\"`         `\"-.                  \n";
+    std::cout << "        (  ooo  ooo  ooo  )                   \n";
+    std::cout << "         '-.,_________,.-'    ,-----------.   \n";
+    std::cout << "              /     \\        (  Send help! ) \n";
+    std::cout << "             /   0   \\      / `-----------'  \n";
+    std::cout << "            /  --|--  \\    /                 \n";
+    std::cout << "           /     |     \\                     \n";
+    std::cout << "          /     / \\     \\                   \n";
+    std::cout << "         /               \\                   \n";
+
+  }
+  else if (misses == 2) {
+
+    std::cout << "                 .                            \n";
+    std::cout << "                 |                            \n";
+    std::cout << "              .-\"^\"-.                       \n";
+    std::cout << "             /_....._\\                       \n";
+    std::cout << "         .-\"`         `\"-.                  \n";
+    std::cout << "        (  ooo  ooo  ooo  )                   \n";
+    std::cout << "         '-.,_________,.-'    ,-----------.   \n";
+    std::cout << "              /  0  \\        (  Send help! ) \n";
+    std::cout << "             / --|-- \\      / `-----------'  \n";
+    std::cout << "            /    |    \\    /                 \n";
+    std::cout << "           /    / \\    \\                    \n";
+    std::cout << "          /             \\                    \n";
+    std::cout << "         /               \\                   \n";
+
+  }
+  else if (misses == 3) {
+
+    std::cout << "                 .                            \n";
+    std::cout << "                 |                            \n";
+    std::cout << "              .-\"^\"-.                       \n";
+    std::cout << "             /_....._\\                       \n";
+    std::cout << "         .-\"`         `\"-.                  \n";
+    std::cout << "        (  ooo  ooo  ooo  )                   \n";
+    std::cout << "         '-.,_________,.-'    ,-----------.   \n";
+    std::cout << "              /--|--\\        (  Send help! ) \n";
+    std::cout << "             /   |   \\      / `-----------'  \n";
+    std::cout << "            /   / \\   \\    /                \n";
+    std::cout << "           /           \\                     \n";
+    std::cout << "          /             \\                    \n";
+    std::cout << "         /               \\                   \n";
+
+  }
+  else if (misses == 3) {
+
+    std::cout << "                 .                            \n";
+    std::cout << "                 |                            \n";
+    std::cout << "              .-\"^\"-.                       \n";
+    std::cout << "             /_....._\\                       \n";
+    std::cout << "         .-\"`         `\"-.                  \n";
+    std::cout << "        (  ooo  ooo  ooo  )                   \n";
+    std::cout << "         '-.,_________,.-'    ,-----------.   \n";
+    std::cout << "              /--|--\\        (  Send help! ) \n";
+    std::cout << "             /   |   \\      / `-----------'  \n";
+    std::cout << "            /   / \\   \\    /                \n";
+    std::cout << "           /           \\                     \n";
+    std::cout << "          /             \\                    \n";
+    std::cout << "         /               \\                   \n";
+
+  }
+  else if (misses == 4) {
+
+    std::cout << "                 .                            \n";
+    std::cout << "                 |                            \n";
+    std::cout << "              .-\"^\"-.                       \n";
+    std::cout << "             /_....._\\                       \n";
+    std::cout << "         .-\"`         `\"-.                  \n";
+    std::cout << "        (  ooo  ooo  ooo  )                   \n";
+    std::cout << "         '-.,_________,.-'    ,-----------.   \n";
+    std::cout << "              /  |  \\        (  Send help! ) \n";
+    std::cout << "             /  / \\  \\      / `-----------' \n";
+    std::cout << "            /         \\    /                 \n";
+    std::cout << "           /           \\                     \n";
+    std::cout << "          /             \\                    \n";
+    std::cout << "         /               \\                   \n";
+
+  }
+  else if (misses == 5) {
+
+    std::cout << "                 .                            \n";
+    std::cout << "                 |                            \n";
+    std::cout << "              .-\"^\"-.                       \n";
+    std::cout << "             /_....._\\                       \n";
+    std::cout << "         .-\"`         `\"-.                  \n";
+    std::cout << "        (  ooo  ooo  ooo  )                   \n";
+    std::cout << "         '-.,_________,.-'    ,-----------.   \n";
+    std::cout << "              / / \\ \\        (  Send help! )\n";
+    std::cout << "             /       \\      / `-----------'  \n";
+    std::cout << "            /         \\    /                 \n";
+    std::cout << "           /           \\                     \n";
+    std::cout << "          /             \\                    \n";
+    std::cout << "         /               \\                   \n";
+
+  }
+  else if (misses == 6) {
+
+    std::cout << "                 .                            \n";
+    std::cout << "                 |                            \n";
+    std::cout << "              .-\"^\"-.                       \n";
+    std::cout << "             /_....._\\                       \n";
+    std::cout << "         .-\"`         `\"-.                  \n";
+    std::cout << "        (  ooo  ooo  ooo  )                   \n";
+    std::cout << "         '-.,_________,.-'    ,-----------.   \n";
+    std::cout << "              /     \\        (  Send help! ) \n";
+    std::cout << "             /       \\      / `-----------'  \n";
+    std::cout << "            /         \\    /                 \n";
+    std::cout << "           /           \\                     \n";
+    std::cout << "          /             \\                    \n";
+    std::cout << "         /               \\                   \n";
+
+  }
+
+}
+
+MAIN
+
+#include <iostream>
+#include "ufo_functions.hpp"
+
+int main() {
+
+  int misses = 0;
+  std::string codeword = "codeacademy", answer = "___________";
+  
+  greet();
+  
+  std::vector <char> incorrect;
+  bool guess = false;
+  char letter;
+  
+  
+  while (answer != codeword && misses < 7){
+    
+    std::cout << "\nYour current codeword is: " << answer << "\n";
+    
+    display_misses(misses);
+    
+		display_status(incorrect, answer);
+    
+    std::cout << "Please enter your guess: ";
+    std::cin >> letter;
+    
+    for (int i = 0; i < codeword.length(); i++){
+      
+      if (letter == codeword[i]){
+        answer[i] = letter;
+        guess = true;
+      }
+      
+    }
+    
+    if(guess){
+      std::cout << "Correct!\n";
+    }
+    else {
+      std::cout << "Incorrect! The tractor beam pulls the person in further.";
+      incorrect.push_back(letter);
+      misses++;
+    }
+   
+    guess = false;
+    
+  }
+
+  end_game(codeword, answer);
+  
+}
