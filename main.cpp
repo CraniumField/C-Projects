@@ -1,136 +1,207 @@
-/* This is the console executable, that makes use of the BullCow Class
-This acts as the view in a MVC pattern, and is responsible for all
-user interaction. For game logic see the FBullCowGame class.
-*/
+// A C++ program to find convex hull of a set of points. Refer 
+// https://www.geeksforgeeks.org/orientation-3-ordered-points/ 
+// for explanation of orientation() 
+#include <iostream> 
+#include <stack> 
+#include <stdlib.h> 
+#include <vector>
+#include <cstdlib>
+#include <cmath>
+#include <time.h>
+#include "hit.h"
+using namespace std;
 
-#pragma once
-#include <iostream>	//preprocessor directive (build->pastes)
-#include <string>
-#include "FBullCowGame.h"
-
-using FText = std::string;
-using int32 = int;
-
-void PrintIntro();
-void PlayGame();
-FText GetValidGuess();
-bool AskToPlayAgain();
-void PrintGameSummary();
-
-FBullCowGame BCGame; // instantiate a new game
-
-// the entry point for our application: (Abstractions) << applied (Encapsulation)
-int main() 
+struct Point
 {
-	bool bPlayAgain = false;
-	do {
-		PrintIntro();
-		PlayGame();
-		
-		bPlayAgain = AskToPlayAgain();
-	} while (bPlayAgain);
+	int x, y;
+};
 
-	return 0; // exit the application
+// A global point needed for  sorting points with reference 
+// to  the first point Used in compare function of qsort() 
+Point p0;
+
+std::vector <Point> convex_hull_vector;
+
+// A utility function to find next to top in a stack 
+Point nextToTop(stack<Point> &S)
+{
+	Point p = S.top();
+	S.pop();
+	Point res = S.top();
+	S.push(p);
+	return res;
 }
 
-
-void PrintIntro() 
+// A utility function to swap two points 
+void swap(Point &p1, Point &p2)
 {
-
-	// introduce the game
-	std::cout << "\nWelcome to Bulls and Cows, an exciting word game\n";
-	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
-	std::cout << " letter isogram I'm thinking of?\n";
-	std::cout << "          {} {}    o   o    \n";
-	std::cout << "          (0 0)    (0 0)       \n";
-	std::cout << "      _____\\ /     \\ /_____     \n";
-	std::cout << "    ~(       )     (        )~      \n";
-	std::cout << "     (_______)     (________)    \n";
-	std::cout << "     |_|_' |_|_   _|_|  _|_|  \n\n";
-	return;
+	Point temp = p1;
+	p1 = p2;
+	p2 = temp;
 }
 
-// plays a single game to completion
-void PlayGame() 
+// A utility function to return square of distance 
+// between p1 and p2 
+int distSq(Point p1, Point p2)
 {
-	BCGame.Reset();
-	int32 MaxTries = BCGame.GetMaxTries(); 
-
-	// loop through guesses while game is NOT won
-	// and there are still tries remaining
-	while(!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries) {
-		FText Guess = GetValidGuess();
-
-		// submit valid guess to the game, and receive counts
-		FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
-
-		std::cout << "Bulls = " << BullCowCount.Bulls;
-		std::cout << ". Cows = " << BullCowCount.Cows << "\n\n";
-	}
-
-	PrintGameSummary();
-	return;
+	return (p1.x - p2.x)*(p1.x - p2.x) +
+		(p1.y - p2.y)*(p1.y - p2.y);
 }
 
-// loop continually until the user gives a valid guess
-FText GetValidGuess()
+// To find orientation of ordered triplet (p, q, r). 
+// The function returns following values 
+// 0 --> p, q and r are colinear 
+// 1 --> Clockwise 
+// 2 --> Counterclockwise 
+int orientation(Point p, Point q, Point r)
 {
-	FText Guess = "";
-	EGuessStatus Status = EGuessStatus::Invalid_Status;
-	do {
-		// get a guess from the player
-		int32 CurrentTry = BCGame.GetCurrentTry();
-		std::cout << "Try " << CurrentTry << " of " << BCGame.GetMaxTries();
-		std::cout << ". Enter your Guess : ";
-		getline(std::cin, Guess);
+	int val = (q.y - p.y) * (r.x - q.x) -
+		(q.x - p.x) * (r.y - q.y);
 
-		//check status and give feedback
-		Status = BCGame.CheckGuessValidity(Guess);
-		switch (Status)	{
-		case EGuessStatus::Wrong_Length:
-			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n\n";
-			break;
-		case EGuessStatus::Not_Isogram:
-			std::cout << "Please enter a word with no repeating letters.\n\n";
-			break;
-		case EGuessStatus::Not_Lowercase:
-			std::cout << "Please enter an all lowercase word.\n\n";
-			break;
-		default:
-			// assume the guess is valid
-			break;
-		}
-	} while (Status != EGuessStatus::OK); // keep looping until we get no errors
-	return Guess;
+	if (val == 0) return 0;  // colinear 
+	return (val > 0) ? 1 : 2; // clock or counterclock wise 
 }
 
-bool AskToPlayAgain()
+// A function used by library function qsort() to sort an array of 
+// points with respect to the first point 
+int compare(const void *vp1, const void *vp2)
 {
-	std::cout << "\nWould you like to play again with the same word (y/n)? \n";
-	FText Answer = "";
-	getline(std::cin, Answer);
+	Point *p1 = (Point *)vp1;
+	Point *p2 = (Point *)vp2;
 
-	return (Answer[0] == 'y') || (Answer[0] == 'Y');
+	// Find orientation 
+	int o = orientation(p0, *p1, *p2);
+	if (o == 0)
+		return (distSq(p0, *p2) >= distSq(p0, *p1)) ? -1 : 1;
+
+	return (o == 2) ? -1 : 1;
 }
 
-void PrintGameSummary()
+// Prints convex hull of a set of n points. 
+void convexHull(Point points[], int n)
 {
-	if (BCGame.IsGameWon()) {
-		std::cout << "Congratulation YOU WIN!";
-	}
-	else
+	// Find the bottommost point 
+	int ymin = points[0].y, min = 0;
+	for (int i = 1; i < n; i++)
 	{
-		std::cout << "Better Luck Next Time";
+		int y = points[i].y;
+
+		// Pick the bottom-most or chose the left 
+		// most point in case of tie 
+		if ((y < ymin) || (ymin == y &&
+			points[i].x < points[min].x))
+			ymin = points[i].y, min = i;
 	}
-	return;
+
+	// Place the bottom-most point at first position 
+	swap(points[0], points[min]);
+
+	// Sort n-1 points with respect to the first point. 
+	// A point p1 comes before p2 in sorted output if p2 
+	// has larger polar angle (in counterclockwise 
+	// direction) than p1 
+	p0 = points[0];
+	qsort(&points[1], n - 1, sizeof(Point), compare);
+
+	// If two or more points make same angle with p0, 
+	// Remove all but the one that is farthest from p0 
+	// Remember that, in above sorting, our criteria was 
+	// to keep the farthest point at the end when more than 
+	// one points have same angle. 
+	int m = 1; // Initialize size of modified array 
+	for (int i = 1; i<n; i++)
+	{
+		// Keep removing i while angle of i and i+1 is same 
+		// with respect to p0 
+		while (i < n - 1 && orientation(p0, points[i],
+			points[i + 1]) == 0)
+			i++;
+
+
+		points[m] = points[i];
+		m++;  // Update size of modified array 
+	}
+
+	// If modified array of points has less than 3 points, 
+	// convex hull is not possible 
+	if (m < 3) return;
+
+	// Create an empty stack and push first three points 
+	// to it. 
+	stack<Point> S;
+	S.push(points[0]);
+	S.push(points[1]);
+	S.push(points[2]);
+
+	// Process remaining n-3 points 
+	for (int i = 3; i < m; i++)
+	{
+		// Keep removing top while the angle formed by 
+		// points next-to-top, top, and points[i] makes 
+		// a non-left turn 
+		while (orientation(nextToTop(S), S.top(), points[i]) != 2)
+			S.pop();
+		S.push(points[i]);
+	}
+
+	// Now stack has the output points, print contents of stack 
+	while (!S.empty())
+	{
+		Point p = S.top();
+		convex_hull_vector.push_back(p);
+		cout << "(" << p.x << ", " << p.y << ")" << endl;
+		S.pop();
+	}
 }
 
-/*
-int ChooseHiddenWord()
+// Driver program to test above functions 
+int main()
 {
-	std::cout << "\nPlease choose a number from 1-5 to select a hidden word. \n";
-	FText Choice = 0;
-	getline(std::cin, Choice);
-	return std::stoi(Choice);
+	//MY CODE
+	int const nails = 10;
+	std::vector<Hit> hit_vector;
+
+	//Randomly generate points for the nails to land at
+	//100 represents the grid in centimetres
+	srand(time(NULL));
+	for (int i = 0; i < nails; i++) {
+		Hit hit(rand() % 100 + 1, rand() % 100 + 1);
+		hit_vector.push_back(hit);
+		std::cout << "Golden" << " " << hit.x << " " << hit.y << "\n";
+	}
+
+	// Initialize points to those randomly generated above
+	Point points[nails];
+	for (int i = 0; i < nails; i++) {
+		points[i].x = hit_vector[i].x;
+		points[i].y = hit_vector[i].y;
+	}
+	//MY CODE ^.^
+
+	//Point points[] = {{0, 3}, {1, 1}, {2, 2}, {4, 4}, 
+	//                  {0, 0}, {1, 2}, {3, 1}, {3, 3}}; 
+	int n = sizeof(points) / sizeof(points[0]);
+	convexHull(points, n);
+	double total_length = 0;
+	for (int i = 0; i < convex_hull_vector.size(); i++) {
+
+		if (i == convex_hull_vector.size() - 1) {
+			std::cout << "\nlast one section\n";
+			double a = abs(convex_hull_vector[i].y - convex_hull_vector[0].y);
+			double b = abs(convex_hull_vector[i].x - convex_hull_vector[0].x);
+			total_length += sqrt(a*a + b*b);
+			std::cout << "a: " << a << "\nb: " << b;
+		}
+		else {
+			double a = abs(convex_hull_vector[i].y - convex_hull_vector[i + 1].y);
+			double b = abs(convex_hull_vector[i].x - convex_hull_vector[i + 1].x);
+			total_length += sqrt(a*a + b*b);
+			std::cout << "a: " << a << "\nb: " << b;
+		}
+		std::cout << "\nTotal Length: " << total_length << "\n";
+
+	}
+	std::cout << "\nTotal Length: " << total_length << "\n";
+
+	return 0;
 }
-*/
